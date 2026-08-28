@@ -1,17 +1,52 @@
-export const dynamic = "force-dynamic";
+"use client";
 
+import { useEffect, useState } from "react";
 import {
   ArrowRight,
+  RotateCcw,
   ShieldCheck,
   Truck,
-  RotateCcw,
 } from "lucide-react";
 
 import ProductGrid from "@/components/ProductGrid";
-import { getProducts } from "@/lib/api";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
+import type { Product } from "@/types";
 
-export default async function Home() {
-  const products = await getProducts();
+export default function Home() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function loadProducts() {
+      try {
+        setLoading(true);
+        setError("");
+
+        const response = await fetch(
+          "https://fakestoreapi.com/products"
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch products");
+        }
+
+        const data: Product[] = await response.json();
+
+        setProducts(data);
+      } catch (error) {
+        console.error(error);
+
+        setError(
+          "Unable to load products. Please try again."
+        );
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadProducts();
+  }, []);
 
   return (
     <div className="page-animation">
@@ -98,7 +133,40 @@ export default async function Home() {
           </h2>
         </div>
 
-        <ProductGrid products={products} />
+        {loading && (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {Array.from({ length: 8 }).map(
+              (_, index) => (
+                <LoadingSkeleton key={index} />
+              )
+            )}
+          </div>
+        )}
+
+        {!loading && error && (
+          <div className="rounded-2xl bg-white p-10 text-center shadow-sm">
+            <h2 className="text-xl font-bold text-red-500">
+              Failed to load products
+            </h2>
+
+            <p className="mt-2 text-slate-500">
+              {error}
+            </p>
+
+            <button
+              onClick={() => window.location.reload()}
+              className="mt-5 rounded-xl bg-emerald-600 px-5 py-3 font-bold text-white"
+            >
+              Try Again
+            </button>
+          </div>
+        )}
+
+        {!loading &&
+          !error &&
+          products.length > 0 && (
+            <ProductGrid products={products} />
+          )}
       </section>
     </div>
   );
