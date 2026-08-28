@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import {
   ArrowRight,
   ShieldCheck,
@@ -28,10 +30,9 @@ export default async function Home() {
             </h1>
 
             <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
-              Explore quality products across
-              fashion, electronics, jewelry and
-              more — all in one modern shopping
-              experience.
+              Explore quality products across fashion,
+              electronics, jewelry and more — all in one
+              modern shopping experience.
             </p>
 
             <a
@@ -46,9 +47,11 @@ export default async function Home() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-1">
             <div className="rounded-2xl bg-white p-6 shadow-sm">
               <Truck className="mb-4 text-emerald-600" />
+
               <h3 className="font-bold">
                 Fast Delivery
               </h3>
+
               <p className="mt-1 text-sm text-slate-500">
                 Quick and dependable shopping.
               </p>
@@ -56,9 +59,11 @@ export default async function Home() {
 
             <div className="rounded-2xl bg-white p-6 shadow-sm">
               <ShieldCheck className="mb-4 text-emerald-600" />
+
               <h3 className="font-bold">
                 Trusted Shopping
               </h3>
+
               <p className="mt-1 text-sm text-slate-500">
                 Simple and secure experience.
               </p>
@@ -66,9 +71,11 @@ export default async function Home() {
 
             <div className="rounded-2xl bg-white p-6 shadow-sm">
               <RotateCcw className="mb-4 text-emerald-600" />
+
               <h3 className="font-bold">
                 Easy Experience
               </h3>
+
               <p className="mt-1 text-sm text-slate-500">
                 Browse and manage your cart easily.
               </p>

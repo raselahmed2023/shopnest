@@ -1,6 +1,12 @@
+export const dynamic = "force-dynamic";
+
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ShoppingCart, Star } from "lucide-react";
+import {
+  ArrowLeft,
+  ShoppingCart,
+  Star,
+} from "lucide-react";
 
 import { getProduct } from "@/lib/api";
 import AddToCartButton from "@/components/AddToCartButton";
@@ -15,6 +21,7 @@ export default async function ProductDetailsPage({
   params,
 }: ProductDetailsPageProps) {
   const { id } = await params;
+
   const product = await getProduct(id);
 
   return (
@@ -48,7 +55,10 @@ export default async function ProductDetailsPage({
           </h1>
 
           <div className="mt-5 flex items-center gap-2">
-            <Star className="fill-amber-400 text-amber-400" size={20} />
+            <Star
+              className="fill-amber-400 text-amber-400"
+              size={20}
+            />
 
             <span className="font-bold">
               {product.rating.rate}
@@ -73,7 +83,8 @@ export default async function ProductDetailsPage({
 
           <div className="mt-6 flex items-center gap-2 text-sm text-slate-500">
             <ShoppingCart size={17} />
-            Add this item to your cart and continue shopping.
+            Add this item to your cart and continue
+            shopping.
           </div>
         </div>
       </div>
